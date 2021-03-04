@@ -3,7 +3,7 @@ import RPi.GPIO as GPIO     # Importing the GPIO library to control GPIO pins of
 from time import sleep      # Import sleep module from time library to add delays
  
 # Pins where we have connected servos
-servo_pin = 26          
+servo_pin = 14          
 servo_pin1 = 19
  
 GPIO.setmode(GPIO.BCM)      # We are using the BCM pin numbering
