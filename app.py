@@ -1,20 +1,27 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
-import RPi.GPIO as GPIO
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-servo_pin = 14
+import RPi.GPIO as GPIO
+
+PIN_left = 14
+PIN_right = 15
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(servo_pin, GPIO.OUT)
-p = GPIO.PWM(servo_pin, 50)
-p.start(0)
+GPIO.setup(PIN_left, GPIO.OUT)
+GPIO.setup(PIN_right, GPIO.OUT)
+
+p_left = GPIO.PWM(PIN_left, 50)
+p_left.start(0)
+
+p_right = GPIO.PWM(PIN_right, 50)
+p_right.start(0)
 
 
 values = {
-    'slider1': 25,
-    'slider2': 0,
+    'v': 0,
+    'h': 0,
 }
 
 @app.route('/')
@@ -25,8 +32,13 @@ def index():
 def value_changed(message):
     values[message['who']] = message['data']
     emit('update value', message, broadcast=True)
-    p.ChangeDutyCycle(float(values['myRange']))
-    print(values)
+    v = float(values['v'])
+    h = float(values['h'])
+    l = 3.5 + (v + h) * 0.5
+    r = 3.5 + (v - h) * 0.5
+    p_left.ChangeDutyCycle(float(l))
+    p_right.ChangeDutyCycle(float(r))
+    print('l : ', l, '   r : ', r)
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0')

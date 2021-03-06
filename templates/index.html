@@ -3,6 +3,25 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        input[type=range][orient=vertical]
+{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 200px;
+            left: 50px;
+    padding: 0 5px;
+}
+        input[type=range][orient=horizontal]
+{
+    #writing-mode: bt-lr; /* IE */
+    #-webkit-appearance: slider-vertical; /* WebKit */
+            top: 100px;
+    width: 200px;
+    height: 8px;
+    padding: 0 5px;
+            float: right;
+}
 .slidecontainer {
   width: 100%;
 }
@@ -66,17 +85,12 @@
 <body>
     <h1>Synchronized Sliders!</h1>
     <div class="slidecontainer">
-        <p>Default range slider:</p>
-        <input type="range" min="1" max="100" value="50">
 
-        <p>Custom range slider:</p>
-        <input type="range" min="4" max="10" step="0.1" value="50" class="slider" id="myRange" >
+        <input type="range" min="0" max="10" step="1" value="0" orient="vertical" class="slider" id="v" />
+        <input type="range" min="-3" max="3" step="1" value="0" orient="horizontal" class="slider" id="h" />
+
     </div>
 
-    <input id="slider1" class="sync" type="range" min="0" max="50" value="{{slider1}}" /> <br>
-    <input id="slider2" class="sync" type="range" min="0" max="50" value="{{slider2}}" /> <br>
-
-    <input id="txt1" class="sync" type="text" />
 
 </body>
 </html>
