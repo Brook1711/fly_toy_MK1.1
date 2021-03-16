@@ -13,9 +13,9 @@ GPIO.setup(PIN_left, GPIO.OUT)
 GPIO.setup(PIN_right, GPIO.OUT)
 
 p_left = GPIO.PWM(PIN_left, 50)
-p_left.start(0)
-
 p_right = GPIO.PWM(PIN_right, 50)
+
+p_left.start(0)
 p_right.start(0)
 
 
@@ -34,8 +34,8 @@ def value_changed(message):
     emit('update value', message, broadcast=True)
     v = float(values['v'])
     h = float(values['h'])
-    l = 3.5 + (v + h) * 0.5
-    r = 3.5 + (v - h) * 0.5
+    l = 0 + (v + h*0.5) * 1
+    r = 0 + (v - h*0.5) * 1
     p_left.ChangeDutyCycle(float(l))
     p_right.ChangeDutyCycle(float(r))
     print('l : ', l, '   r : ', r)
